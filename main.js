@@ -47,13 +47,31 @@ const checkEmail = (email) =>{
     }
 }
 
+const checkPasswordLength = (password,min,max) =>{
+    if(password.value.length < min){
+        showError(password, `Password should be atleast ${min} characters`);
+    }else if(password.value.length > max){
+        showError(password, `Password should be less than ${max} characters`);
+    }else{
+        showSuccess(password);
+    }
+    //compare password and confirmPassword to check if they are equal
+    if(password.value !== confirmPassword.value){
+        showError(confirmPassword, 'Password does not match');
+    }
+}
+
 form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     checkEmpty([username,email,password,confirmPassword]);
     checkEmail(email);
     checkPasswordLength(password,8,20);
+    checkPasswordLength(confirmPassword,8,20);
 }); 
+
+
+
 // form.addEventListener("submit", (event)=>{
 //     //prevents auto control of consol
 //     event.preventDefault();
